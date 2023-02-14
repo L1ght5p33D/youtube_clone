@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'package:yt_clone_webplayer/yt_globals.dart';
+import 'package:yt_clone_webplayer/vid_data.dart';
+import 'package:yt_clone_webplayer/video_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,16 +34,34 @@ class YTHome extends StatefulWidget {
 final _navigatorKey = GlobalKey();
 
 class _YTHomeState extends State<YTHome> {
+  int _nav_selected_idx = 0;
+
   @override
   Widget build(BuildContext context) {
     ss = MediaQuery.of(context).size;
 
-    double x  = 0;
 
     return Scaffold(
       body:
     Stack(
       children: <Widget>[
+        Container(height: ss.height * .91,child:CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 60.0),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                    final video = homeScreenVideos[index];
+                    return VideoCard(video: video);
+                  },
+                  childCount: homeScreenVideos.length,
+                ),
+              ),
+            ),
+          ],
+        ),),
+
         Navigator(
           key: _navigatorKey,
           onGenerateRoute: (RouteSettings settings) => MaterialPageRoute(
@@ -63,7 +83,7 @@ class _YTHomeState extends State<YTHome> {
                     .5 / (percentage + .5) ,0,0,0,
                     0,1,0,0,
                     0,0,1,0,
-                    0,0,0,1,)..rotateX(x),
+                    0,0,0,1,),
                       alignment: FractionalOffset.centerRight,
                       child:Container(
                         width: ss.width*.5,
@@ -79,7 +99,7 @@ class _YTHomeState extends State<YTHome> {
                  (percentage + .5 ) / .5 ,0,0,0,
                 0,1,0,0,
                 0,0,1,0,
-                0,0,0,1,)..rotateX(x),
+                0,0,0,1,),
               alignment: FractionalOffset.center,
               child:Container(
                   width: ss.width*.5,
@@ -92,27 +112,34 @@ class _YTHomeState extends State<YTHome> {
       ],
     ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        fixedColor: Colors.blue,
+        onTap: (idx){
+          setState(() {
+            _nav_selected_idx = idx;});},
+        currentIndex: _nav_selected_idx,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home,
+            color: Theme.of(context).textTheme.titleMedium!.color,),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.av_timer_sharp),
+            icon: Icon(Icons.av_timer_sharp,
+            color: Theme.of(context).textTheme.titleMedium!.color,),
             label: 'Shorts',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline),
+            icon: Icon(Icons.add_circle_outline,
+            color: Theme.of(context).textTheme.titleMedium!.color,),
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions_outlined),
+            icon: Icon(Icons.subscriptions_outlined,
+            color: Theme.of(context).textTheme.titleMedium!.color,),
             label: 'Subscriptions',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.video_collection_outlined),
+            icon: Icon(Icons.video_collection_outlined,
+            color: Theme.of(context).textTheme.titleMedium!.color,),
             label: 'Library',
           )
         ],
