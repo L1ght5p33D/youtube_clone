@@ -4,25 +4,33 @@ import 'package:miniplayer/miniplayer.dart';
 import 'package:yt_clone_webplayer/yt_globals.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
 import 'package:yt_clone_webplayer/video_card.dart';
+import 'package:yt_clone_webplayer/video_details_page.dart';
+import 'package:yt_clone_webplayer/yt_state.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const YTApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class YTApp extends StatelessWidget {
+  const YTApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return AppStateContainer(child:MaterialApp(
       title: 'YT Clone Webplayer',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: YTHome(),
-    );
+      routes:{
+        "/video_details": (context){ return VideoDetailPage();},
+        "/home": (context){ return YTHome();}
+      }
+    ));
   }
 }
+
+
 
 class YTHome extends StatefulWidget {
   const YTHome({Key? key}) : super(key: key);
@@ -31,10 +39,10 @@ class YTHome extends StatefulWidget {
   _YTHomeState createState() => _YTHomeState();
 }
 
-final _navigatorKey = GlobalKey();
 
 class _YTHomeState extends State<YTHome> {
   int _nav_selected_idx = 0;
+  final _navigatorKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +57,7 @@ class _YTHomeState extends State<YTHome> {
           key: _navigatorKey,
           onGenerateRoute: (RouteSettings settings) => MaterialPageRoute(
             settings: settings,
-            builder: (BuildContext context) => FirstScreen(),
+            builder: (BuildContext context) => HomeList(),
           ),
         ),
         Miniplayer(
@@ -97,7 +105,11 @@ class _YTHomeState extends State<YTHome> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (idx){
           setState(() {
-            _nav_selected_idx = idx;});},
+            _nav_selected_idx = idx;});
+            if (idx == 0){
+              Navigator.of(context).pushNamed("/home");
+          }
+            },
         currentIndex: _nav_selected_idx,
         items: [
           BottomNavigationBarItem(
@@ -130,7 +142,7 @@ class _YTHomeState extends State<YTHome> {
   }
 }
 
-class FirstScreen extends StatelessWidget {
+class HomeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,26 +167,6 @@ class FirstScreen extends StatelessWidget {
           ],
         ),),
       ),
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Demo: SecondScreen')),
-      body: Center(child: Text('SecondScreen')),
-    );
-  }
-}
-
-class ThirdScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Demo: ThirdScreen')),
-      body: Center(child: Text('ThirdScreen')),
     );
   }
 }

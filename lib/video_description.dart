@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
 
 class VideoDescription extends StatelessWidget {
-  const VideoDescription({Key? key}) : super(key: key);
+  VideoDescription({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class VideoDescription extends StatelessWidget {
       child: Column(
         children: [
           VideoMiniature(path: currentVideo.miniatureImagePath),
-          const VideoDetailsPanel(),
+          VideoDetailsPanel(),
         ],
       ),
     );
@@ -18,7 +18,7 @@ class VideoDescription extends StatelessWidget {
 }
 
 class VideoDetailsPanel extends StatelessWidget {
-  const VideoDetailsPanel({Key? key}) : super(key: key);
+  VideoDetailsPanel({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class VideoDetailsPanel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  currentVideo.title,
+                  video.title,
                   style: const TextStyle(
                     // color: accentLightGrey,
                     fontWeight: FontWeight.bold,

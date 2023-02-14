@@ -19,7 +19,7 @@ class VideoCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const VideoDetailPage(),
+                    builder: (context) => VideoDetailPage(video: video),
                   ),
                 );
               },

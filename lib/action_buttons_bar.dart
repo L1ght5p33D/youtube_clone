@@ -45,36 +45,36 @@ class ActionButton extends StatelessWidget {
 }
 
 class ActionButtonsBar extends StatelessWidget {
-  final actionButtons = [
-    ActionButton(
-      actionIcon: Icons.thumb_up_alt_outlined,
-      bottomLabel: formatNumber(currentVideo.likesCounter),
-    ),
-    ActionButton(
-        actionIcon: Icons.thumb_down_alt_outlined,
-        bottomLabel: formatNumber(currentVideo.dislikesCounter)),
-    const ActionButton(
-      actionIcon: CupertinoIcons.reply_all,
-      bottomLabel: 'Share',
-    ),
-    const ActionButton(
-      actionIcon: Icons.video_library_outlined,
-      bottomLabel: 'Create',
-    ),
-    const ActionButton(
-      actionIcon: Icons.download_outlined,
-      bottomLabel: 'Download',
-    ),
-    const ActionButton(
-      actionIcon: Icons.save_alt_outlined,
-      bottomLabel: 'Save',
-    ),
-  ];
-
   ActionButtonsBar({Key? key}) : super(key: key);
 
+  
   @override
   Widget build(BuildContext context) {
+    List<Widget> actionButtons = [
+      ActionButton(
+        actionIcon: Icons.thumb_up_alt_outlined,
+        bottomLabel: formatNumber(video.likesCounter),
+      ),
+      ActionButton(
+          actionIcon: Icons.thumb_down_alt_outlined,
+          bottomLabel: formatNumber(video.dislikesCounter)),
+      const ActionButton(
+        actionIcon: CupertinoIcons.reply_all,
+        bottomLabel: 'Share',
+      ),
+      const ActionButton(
+        actionIcon: Icons.video_library_outlined,
+        bottomLabel: 'Create',
+      ),
+      const ActionButton(
+        actionIcon: Icons.download_outlined,
+        bottomLabel: 'Download',
+      ),
+      const ActionButton(
+        actionIcon: Icons.save_alt_outlined,
+        bottomLabel: 'Save',
+      ),
+    ];
     return Container(
       width: MediaQuery.of(context).size.width,
       // color: mainComponentsGrey,

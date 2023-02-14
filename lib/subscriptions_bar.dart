@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
 
 class SubscriptionBar extends StatelessWidget {
-  const SubscriptionBar({Key? key}) : super(key: key);
+  SubscriptionBar({Key? key, required this.video}) : super(key: key);
 
+  Video video;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,15 +12,15 @@ class SubscriptionBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[ChannelInformation(), SubscriptionStatus()],
+        children: <Widget>[ChannelInformation(video: video), SubscriptionStatus()],
       ),
     );
   }
 }
 
 class ChannelInformation extends StatelessWidget {
-  const ChannelInformation({Key? key}) : super(key: key);
-
+  ChannelInformation({Key? key, required this.video}) : super(key: key);
+Video video;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
