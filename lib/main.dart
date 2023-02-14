@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'package:yt_clone_webplayer/yt_globals.dart';
 
@@ -34,6 +35,9 @@ class _YTHomeState extends State<YTHome> {
   @override
   Widget build(BuildContext context) {
     ss = MediaQuery.of(context).size;
+
+    double x  = 0;
+
     return Scaffold(
       body:
     Stack(
@@ -49,9 +53,42 @@ class _YTHomeState extends State<YTHome> {
           minHeight: ss.height*.09,
           maxHeight: ss.height * .79,
           builder: (height, percentage) => Center(
-            child: Text('$height, $percentage'),
-          ),
-        ),
+            child:
+            Stack(children:[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children:[
+                  Transform(transform:
+                  Matrix4(
+                    .5 / (percentage + .5) ,0,0,0,
+                    0,1,0,0,
+                    0,0,1,0,
+                    0,0,0,1,)..rotateX(x),
+                      alignment: FractionalOffset.centerRight,
+                      child:Container(
+                        width: ss.width*.5,
+                        color:Colors.green,
+                        child:Text('$height, $percentage'),))
+                ],),
+
+            Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+              Transform(transform:
+              Matrix4(
+                 (percentage + .5 ) / .5 ,0,0,0,
+                0,1,0,0,
+                0,0,1,0,
+                0,0,0,1,)..rotateX(x),
+              alignment: FractionalOffset.center,
+              child:Container(
+                  width: ss.width*.5,
+                  color:Colors.blue)),
+  ]),
+
+
+        ])
+          )),
       ],
     ),
       bottomNavigationBar: BottomNavigationBar(
