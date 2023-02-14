@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:yt_clone_webplayer/vid_data.dart';
 
 class VideoDescription extends StatelessWidget {
   const VideoDescription({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class VideoDetailsPanel extends StatelessWidget {
                 Text(
                   currentVideo.title,
                   style: const TextStyle(
-                    color: accentLightGrey,
+                    // color: accentLightGrey,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -45,17 +45,20 @@ class VideoDetailsPanel extends StatelessWidget {
                 const SizedBox(height: 12),
                 RichText(
                   text: TextSpan(
-                    style: const TextStyle(color: textLightGrey, fontSize: 13),
+                    style: const TextStyle(
+                        // color: textLightGrey,
+                        fontSize: 13),
                     children: [
                       TextSpan(
                         text:
-                        '${formatNumber(currentVideo.viewsCounter)} views • '
-                            '${timeago.format(currentVideo.timestamp)} ',
+                        '${formatNumber(currentVideo.viewsCounter)} views • ',
+                            // '${timeago.format(currentVideo.timestamp)} ',
                       ),
                       TextSpan(
                         text: currentVideo.tags.join(' '),
                         style: const TextStyle(
-                            color: linkBlue, fontWeight: FontWeight.bold),
+                            // color: linkBlue,
+                            fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

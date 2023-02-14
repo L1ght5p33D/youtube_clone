@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Video {
   final String miniatureImagePath;
   final String title;
@@ -65,9 +67,28 @@ String formatNumber(int value) {
       .firstWhere((e) => !e.startsWith('0'), orElse: () => '$value');
 }
 
+class VideoMiniature extends StatelessWidget {
+  final String path;
+
+  const VideoMiniature({Key? key, this.path = '/'}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).orientation == Orientation.portrait
+          ? MediaQuery.of(context).size.width
+          : MediaQuery.of(context).size.width / 3.5,
+      height: MediaQuery.of(context).size.height / 3.5,
+      decoration: BoxDecoration(
+        image: DecorationImage(image: AssetImage(path), fit: BoxFit.fill),
+      ),
+    );
+  }
+}
+
 Channel currentUser = Channel(
   'John Steck',
-  logoImagePath: 'assets/images/profile_screen/avatars/profile.png',
+  logoImagePath: 'assets/images/user1_pp.png',
   imageUrl: 'https://avatars.githubusercontent.com/u/63707307?v=4',
   subscribersCounter: 100000,
 );
@@ -99,71 +120,71 @@ VideoComments currentVideoComments = VideoComments(
 
 final List<Video> recommendations = [
   Video(
-    'assets/images/video_detail/miniatures/1.jpg',
-    'How to OVER Engineer a Website // What is a Tech Stack?',
+    'https://i.ytimg.com/vi/AJakywBLaJ0/hqdefault.jpg',
+    'Charlie Kelly Stupidity Compilation',
     currentVideoDetailChannel,
     DateTime(2021, 29, 9),
     viewsCounter: 358000,
   ),
   Video(
-    'assets/images/video_detail/miniatures/1.jpg',
-    'No more real videos from Fireship, they didn\'t sponsor me',
+    'https://i.ytimg.com/vi/7xAToHK2nMk/hqdefault.jpg',
+    'Giant Rabbit Playing with Dog',
     currentVideoDetailChannel,
     DateTime(2020, 1, 1),
     viewsCounter: 0,
   ),
   Video(
-    'assets/images/video_detail/miniatures/1.jpg',
-    'Seriously, no more real videos',
+    'https://i.ytimg.com/vi/WNSZ6xouNv4/hq720.jpg',
+    'David Goggins - How To Get Up Early Every Day',
     currentVideoDetailChannel,
-    DateTime(2010, 5, 4),
+    DateTime(2020, 5, 4),
     viewsCounter: 42,
   ),
   Video(
-    'assets/images/video_detail/miniatures/1.jpg',
-    'How to waste 3 hrs of your life on trying to render images with Genymotion',
+    'https://i.ytimg.com/vi/wTq3E1hU4uQ/hq720.jpg',
+    'Mission Across Tatra Mountain Valley Peaks',
     currentVideoDetailChannel,
     DateTime(2018, 3, 3),
-    viewsCounter: 9000000000,
+    viewsCounter: 90000000,
   ),
   Video(
-    'assets/images/video_detail/miniatures/1.jpg',
-    '...and end up using the Android Studio emulator',
+    'https://i.ytimg.com/vi/4tySWLqrYRo/hq720.jpg',
+    'Skiing with the bear on the slope',
     currentVideoDetailChannel,
     DateTime(2019, 23, 2),
-    viewsCounter: -2,
+    viewsCounter: 20000,
   ),
 ];
 
 final List<Video> homeScreenVideos = [
   Video(
-    'https://i.ytimg.com/vi/h0IAgkHpU54/hq720.jpg',
-    'Porsche Taycan Turbo S (761hp) - 0-270 km/h LAUNCH CONTROL🏁',
+    'https://i.ytimg.com/vi/K9EBPADwJuA/hq720.jpg',
+    'Season 4 Funny Moments - Silicon Valley',
     currentUser,
-    DateTime(2021, 3, 20),
-    duration: '8:20',
+    DateTime(2018, 3, 3),
+    duration: '17:17',
     viewsCounter: 10000,
     likesCounter: 958,
     dislikesCounter: 4,
   ),
   Video(
-    'https://i.ytimg.com/vi/5qap5aO4i9A/hq720_live.jpg',
-    'lofi hip hop radio - beats to relax/study to',
+    'https://i.ytimg.com/vi/-U5dEdWouDY/hq720.jpg',
+    'MIND BLOWING WORK ETHIC - Elon Musk Motivational Video',
     currentUser,
-    DateTime(2021, 2, 26),
-    duration: '22:06',
-    viewsCounter: 8000,
-    likesCounter: 485,
-    dislikesCounter: 8,
+    DateTime(2022, 2, 22),
+    duration: '1:00:04',
+    viewsCounter: 148000,
+    likesCounter: 1487,
+    dislikesCounter: 86,
   ),
   Video(
-    'https://i.ytimg.com/vi/_V1URhdh8mI/hqdefault.jpg',
-    'Need For Speed in Real Life Part II',
+    'https://i.ytimg.com/vi/qXD9HnrNrvk/hqdefault.jpg',
+    'Expert Wasted Entire Life Studying Anteaters',
     currentUser,
-    DateTime(2020, 7, 12),
-    duration: '10:53',
-    viewsCounter: 18000,
-    likesCounter: 1000,
-    dislikesCounter: 4,
+    DateTime(2015, 7, 11),
+    duration: '2:55',
+    viewsCounter: 18000000,
+    likesCounter: 4000,
+    dislikesCounter: 450,
   )
 ];

@@ -45,23 +45,6 @@ class _YTHomeState extends State<YTHome> {
       body:
     Stack(
       children: <Widget>[
-        Container(height: ss.height * .91,child:CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.only(bottom: 60.0),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                    final video = homeScreenVideos[index];
-                    return VideoCard(video: video);
-                  },
-                  childCount: homeScreenVideos.length,
-                ),
-              ),
-            ),
-          ],
-        ),),
-
         Navigator(
           key: _navigatorKey,
           onGenerateRoute: (RouteSettings settings) => MaterialPageRoute(
@@ -154,25 +137,23 @@ class FirstScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Demo: FirstScreen')),
       body: Container(
         constraints: BoxConstraints.expand(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SecondScreen()),
+        child:
+        Container(height: ss.height * .91,child:CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 60.0),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                    final video = homeScreenVideos[index];
+                    return VideoCard(video: video);
+                  },
+                  childCount: homeScreenVideos.length,
+                ),
               ),
-              child: const Text('Open SecondScreen'),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.of(context, rootNavigator: true).push(
-                MaterialPageRoute(builder: (context) => ThirdScreen()),
-              ),
-              child: const Text('Open ThirdScreen with root Navigator'),
             ),
           ],
-        ),
+        ),),
       ),
     );
   }
