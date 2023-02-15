@@ -136,7 +136,7 @@ class AppStateContainerState extends State<AppStateContainer> {
         'https://i.ytimg.com/vi/K9EBPADwJuA/hq720.jpg',
         'Season 4 Funny Moments - Silicon Valley',
         Channel(
-          'It\'s always sunny',
+          'Top Silcon Valley',
           logoImagePath: 'assets/images/user1_pp.png',
           imageUrl: 'https://avatars.githubusercontent.com/u/63704302',
           subscribersCounter: 100000,
