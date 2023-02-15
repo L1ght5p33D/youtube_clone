@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:yt_clone_webplayer/vid_overlay.dart';
+import 'package:yt_clone_webplayer/yt_globals.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
 import 'package:yt_clone_webplayer/yt_state.dart';
 import 'package:yt_clone_webplayer/AppStateModel.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class VideoDescription extends StatelessWidget {
+
+
+
+class VideoDescription extends StatefulWidget {
   VideoDescription({Key? key}) : super(key: key);
+
+
+  @override
+  _VideoDescriptionState createState() => _VideoDescriptionState();
+}
+
+class _VideoDescriptionState extends State<VideoDescription> {
 
   AppStateContainerState? scont;
   AppState? astate;
@@ -17,7 +30,12 @@ class VideoDescription extends StatelessWidget {
     return Container(
       child: Column(
         children: [
+          Stack(children:[
+
           VideoMiniature(path: astate!.cVideo!.miniatureImagePath),
+            VidOverlay()
+
+          ]),
           VideoDetailsPanel(),
         ],
       ),

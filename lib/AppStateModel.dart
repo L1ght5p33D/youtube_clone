@@ -1,7 +1,11 @@
 
 import 'package:yt_clone_webplayer/vid_data.dart';
+import 'package:miniplayer/miniplayer.dart';
 
 class AppState{
+
+  MiniplayerController? mp_controller;
+
   //current user
   Channel? cUser;
   // current video

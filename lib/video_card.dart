@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:miniplayer/miniplayer.dart';
+import 'package:yt_clone_webplayer/yt_globals.dart';
 import 'package:yt_clone_webplayer/video_details_page.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
 import 'package:yt_clone_webplayer/yt_state.dart';
 import 'package:yt_clone_webplayer/AppStateModel.dart';
 
-class VideoCard extends StatelessWidget {
-  final Video video;
-
+class VideoCard extends StatefulWidget {
   VideoCard({Key? key, required this.video}) : super(key: key);
+
+  final Video video;
+  @override
+  _VideoCardState createState() => _VideoCardState();
+}
+
+class _VideoCardState extends State<VideoCard> {
+
 
   AppStateContainerState? scont;
   AppState? astate;
@@ -23,16 +31,12 @@ class VideoCard extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                astate!.cVideo = video;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VideoDetailPage(),
-                  ),
-                );
+                setState(() {
+                  astate!.cVideo = widget.video;
+                });
               },
               child: Image.network(
-                video.miniatureImagePath,
+                widget.video.miniatureImagePath,
                 height: 220.0,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -45,7 +49,7 @@ class VideoCard extends StatelessWidget {
                 padding: const EdgeInsets.all(4.0),
                 color: Colors.black,
                 child: Text(
-                  video.duration,
+                  widget.video.duration,
                   style: Theme.of(context)
                       .textTheme
                       .caption!
@@ -64,7 +68,7 @@ class VideoCard extends StatelessWidget {
               GestureDetector(
                 onTap: () => print('Navigate to profile'),
                 child: CircleAvatar(
-                  foregroundImage: NetworkImage(video.channel.imageUrl),
+                  foregroundImage: NetworkImage(widget.video.channel.imageUrl),
                 ),
               ),
               const SizedBox(width: 8.0),
@@ -75,7 +79,7 @@ class VideoCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        video.title,
+                        widget.video.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
@@ -86,7 +90,7 @@ class VideoCard extends StatelessWidget {
                     ),
                     Flexible(
                       child: Text(
-                        '${video.channel.name}',
+                        '${widget.video.channel.name}',
                             // '${formatNumber(video.viewsCounter)} • '
                             // '${timeago.format(video.timestamp)}',
                         // maxLines: 2,

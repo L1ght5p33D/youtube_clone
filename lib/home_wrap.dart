@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'package:yt_clone_webplayer/yt_globals.dart';
 import 'package:yt_clone_webplayer/home_page.dart';
+import 'package:yt_clone_webplayer/video_details_page.dart';
 import 'package:yt_clone_webplayer/yt_state.dart';
 import 'package:yt_clone_webplayer/AppStateModel.dart';
 
@@ -20,10 +21,13 @@ class _YTHomeState extends State<YTHome> {
   AppStateContainerState? scont;
   AppState? astate;
 
+  MiniplayerController mp_controller = MiniplayerController();
+
   @override
   Widget build(BuildContext context) {
     scont = AppStateContainer.of(context);
     astate = scont!.state!;
+    astate!.mp_controller = mp_controller;
     ss = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -40,7 +44,8 @@ class _YTHomeState extends State<YTHome> {
           astate!.cVideo != null?
           Miniplayer(
               minHeight: astate!.cVideo == null? 0.0: ss.height*.09,
-              maxHeight: ss.height * .79,
+              maxHeight: ss.height * .88 ,
+              controller: mp_controller,
               builder: (height, percentage) => Center(
                   child:
                   Stack(children:[
@@ -87,14 +92,15 @@ class _YTHomeState extends State<YTHome> {
                         children: [
                           Transform(transform:
                           Matrix4(
-                            (.75 + (percentage* 50)) / (.75) ,0,0,0,
+                            (percentage )  ,0,0,0,
                             0,1,0,0,
                             0,0,1,0,
                             0,0,0,1,),
                               alignment: FractionalOffset.center,
-                              child:Container(
-                                  width: ss.width*.5,
-                                  color:Colors.blue)),
+                              child: Container(
+                                  width: ss.width * .5,
+                                  // color:Colors.blue
+                              child:VideoDetailPage(),)),
                         ]),
 
 

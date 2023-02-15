@@ -6,6 +6,8 @@ import 'package:yt_clone_webplayer/subscriptions_bar.dart';
 import 'package:yt_clone_webplayer/comments_section.dart';
 import 'package:yt_clone_webplayer/recommendations_section.dart';
 
+DraggableScrollableController scroll_controller = DraggableScrollableController();
+
 class VideoDetailPage extends StatelessWidget {
   VideoDetailPage({Key? key}) : super(key: key);
 
