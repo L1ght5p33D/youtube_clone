@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:yt_clone_webplayer/video_details_page.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
-
+import 'package:yt_clone_webplayer/yt_state.dart';
+import 'package:yt_clone_webplayer/AppStateModel.dart';
 
 class VideoCard extends StatelessWidget {
   final Video video;
 
-  const VideoCard({Key? key, required this.video}) : super(key: key);
+  VideoCard({Key? key, required this.video}) : super(key: key);
+
+  AppStateContainerState? scont;
+  AppState? astate;
 
   @override
   Widget build(BuildContext context) {
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
+
     return Column(
       children: [
         Stack(
           children: [
             GestureDetector(
               onTap: () {
+                astate!.cVideo = video;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => VideoDetailPage(video: video),
+                    builder: (context) => VideoDetailPage(),
                   ),
                 );
               },
@@ -78,7 +86,7 @@ class VideoCard extends StatelessWidget {
                     ),
                     Flexible(
                       child: Text(
-                        '${video.channel.name} • ',
+                        '${video.channel.name}',
                             // '${formatNumber(video.viewsCounter)} • '
                             // '${timeago.format(video.timestamp)}',
                         // maxLines: 2,

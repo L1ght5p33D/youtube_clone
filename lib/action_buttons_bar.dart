@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
+import 'package:yt_clone_webplayer/yt_state.dart';
+import 'package:yt_clone_webplayer/AppStateModel.dart';
 
 class ActionButton extends StatelessWidget {
   final IconData actionIcon;
@@ -47,17 +49,22 @@ class ActionButton extends StatelessWidget {
 class ActionButtonsBar extends StatelessWidget {
   ActionButtonsBar({Key? key}) : super(key: key);
 
-  
+  AppStateContainerState? scont;
+  AppState? astate;
+
   @override
   Widget build(BuildContext context) {
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
+
     List<Widget> actionButtons = [
       ActionButton(
         actionIcon: Icons.thumb_up_alt_outlined,
-        bottomLabel: formatNumber(video.likesCounter),
+        bottomLabel: formatNumber(astate!.cVideo!.likesCounter),
       ),
       ActionButton(
           actionIcon: Icons.thumb_down_alt_outlined,
-          bottomLabel: formatNumber(video.dislikesCounter)),
+          bottomLabel: formatNumber(astate!.cVideo!.dislikesCounter)),
       const ActionButton(
         actionIcon: CupertinoIcons.reply_all,
         bottomLabel: 'Share',

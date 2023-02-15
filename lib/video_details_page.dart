@@ -22,7 +22,7 @@ class VideoDetailPage extends StatelessWidget {
               ActionButtonsBar(),
               SubscriptionBar(),
               const CommentsSection(),
-              const RecommendationsSection(),
+               RecommendationsSection(),
             ],
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
+import 'package:yt_clone_webplayer/yt_state.dart';
+import 'package:yt_clone_webplayer/AppStateModel.dart';
 
 class CommentsSection extends StatelessWidget {
   const CommentsSection({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class CommentsSection extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             CommentsSectionHeader(),
             LastComment(),
           ],
@@ -25,10 +27,16 @@ class CommentsSection extends StatelessWidget {
 }
 
 class CommentsSectionHeader extends StatelessWidget {
-  const CommentsSectionHeader({Key? key}) : super(key: key);
+  CommentsSectionHeader({Key? key}) : super(key: key);
+
+  AppStateContainerState? scont;
+  AppState? astate;
 
   @override
   Widget build(BuildContext context) {
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
+
     return Padding(
       padding: const EdgeInsets.only(left: 10.0),
       child: Row(
@@ -47,7 +55,7 @@ class CommentsSectionHeader extends StatelessWidget {
                       fontSize: 16),
                 ),
                 Text(
-                  currentVideoComments.numberOfComments.toString(),
+                  astate!.cVideoComments!.numberOfComments.toString(),
                   style: const TextStyle(
                       // color: textLightGrey,
                       fontSize: 16),
@@ -70,10 +78,15 @@ class CommentsSectionHeader extends StatelessWidget {
 }
 
 class LastComment extends StatelessWidget {
-  const LastComment({Key? key}) : super(key: key);
+  LastComment({Key? key}) : super(key: key);
+
+  AppStateContainerState? scont;
+  AppState? astate;
 
   @override
   Widget build(BuildContext context) {
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
@@ -86,7 +99,7 @@ class LastComment extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  currentVideoComments.topComment.avatarImagePath,
+                  astate!.cVideoComments!.topComment.avatarImagePath,
                 ),
                 fit: BoxFit.fill,
               ),
@@ -97,7 +110,7 @@ class LastComment extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: Text(
-                currentVideoComments.topComment.text,
+                astate!.cVideoComments!.topComment.text,
                 overflow: TextOverflow.clip,
                 style: const TextStyle(
                   height: 1.75,

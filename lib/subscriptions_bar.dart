@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:yt_clone_webplayer/yt_globals.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
+import 'package:yt_clone_webplayer/yt_state.dart';
+import 'package:yt_clone_webplayer/AppStateModel.dart';
 
 class SubscriptionBar extends StatelessWidget {
-  SubscriptionBar({Key? key, required this.video}) : super(key: key);
+  SubscriptionBar({Key? key}) : super(key: key);
 
-  Video video;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,17 +15,22 @@ class SubscriptionBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[ChannelInformation(video: video), SubscriptionStatus()],
+        children: <Widget>[ChannelInformation(), SubscriptionStatus()],
       ),
     );
   }
 }
 
 class ChannelInformation extends StatelessWidget {
-  ChannelInformation({Key? key, required this.video}) : super(key: key);
-Video video;
+  ChannelInformation({Key? key}) : super(key: key);
+
+  AppStateContainerState? scont;
+  AppState? astate;
+
   @override
   Widget build(BuildContext context) {
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
     return SizedBox(
       height: 72,
       child: Row(
@@ -36,7 +44,7 @@ Video video;
               height: 40,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(currentVideoDetailChannel.logoImagePath),
+                  image: AssetImage(astate!.cVideo!.channel.logoImagePath),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.circular(100.0),
@@ -50,9 +58,10 @@ Video video;
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  currentVideoDetailChannel.name,
+                  astate!.cVideo!.channel.name,
                   style: const TextStyle(
                       // color: accentLightGrey,
+                    overflow: TextOverflow.ellipsis,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -60,9 +69,9 @@ Video video;
                   height: 2,
                 ),
                 Text(
-                  '${formatNumber(currentVideoDetailChannel.subscribersCounter)}'
-                      ' subscribers',
+                  '${formatNumber(astate!.cVideo!.channel.subscribersCounter)}',
                   style: const TextStyle(
+
                       // color: textLightGrey,
                       fontSize: 13),
                 ),
@@ -88,20 +97,19 @@ class SubscriptionStatus extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            
+            ClipRRect(
+        borderRadius: BorderRadius.circular(ss.width*.04),
+        child:
             Padding(
-              padding: const EdgeInsets.only(right: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 'Subscribed'.toUpperCase(),
                 style: const TextStyle(
                     // color: textLightGrey,
                     fontSize: 16),
               ),
-            ),
-            const Icon(
-              Icons.notifications_outlined,
-              // color: textLightGrey,
-              size: 32,
-            ),
+            )),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
-
+import 'package:yt_clone_webplayer/yt_state.dart';
+import 'package:yt_clone_webplayer/AppStateModel.dart';
 
 
 class VideoRecommendation extends StatelessWidget {
@@ -101,10 +102,15 @@ class VideoRecommendationDescription extends StatelessWidget {
 }
 
 class RecommendationsSection extends StatelessWidget {
-  const RecommendationsSection({Key? key}) : super(key: key);
+  RecommendationsSection({Key? key}) : super(key: key);
+
+  AppStateContainerState? scont;
+  AppState? astate;
 
   @override
   Widget build(BuildContext context) {
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
     return Container(
       // color: mainComponentsGrey,
       child: SingleChildScrollView(
@@ -115,9 +121,9 @@ class RecommendationsSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             for (var recommendationsPosition = 0;
-            recommendationsPosition < recommendations.length;
+            recommendationsPosition < astate!.recommendations!.length;
             recommendationsPosition++) ...{
-              VideoRecommendation(recommendations[recommendationsPosition]),
+              VideoRecommendation( astate!.recommendations![recommendationsPosition]),
             },
           ],
         ),

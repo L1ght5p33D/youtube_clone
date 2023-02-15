@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:yt_clone_webplayer/vid_data.dart';
+import 'package:yt_clone_webplayer/yt_state.dart';
+import 'package:yt_clone_webplayer/AppStateModel.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class VideoDescription extends StatelessWidget {
   VideoDescription({Key? key}) : super(key: key);
 
+  AppStateContainerState? scont;
+  AppState? astate;
+
   @override
   Widget build(BuildContext context) {
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
     return Container(
       child: Column(
         children: [
-          VideoMiniature(path: currentVideo.miniatureImagePath),
+          VideoMiniature(path: astate!.cVideo!.miniatureImagePath),
           VideoDetailsPanel(),
         ],
       ),
@@ -20,8 +28,13 @@ class VideoDescription extends StatelessWidget {
 class VideoDetailsPanel extends StatelessWidget {
   VideoDetailsPanel({Key? key}) : super(key: key);
 
+  AppStateContainerState? scont;
+  AppState? astate;
+
   @override
   Widget build(BuildContext context) {
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +48,7 @@ class VideoDetailsPanel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  video.title,
+                  astate!.cVideo!.title,
                   style: const TextStyle(
                     // color: accentLightGrey,
                     fontWeight: FontWeight.bold,
@@ -51,11 +64,11 @@ class VideoDetailsPanel extends StatelessWidget {
                     children: [
                       TextSpan(
                         text:
-                        '${formatNumber(currentVideo.viewsCounter)} views • ',
-                            // '${timeago.format(currentVideo.timestamp)} ',
+                        '${formatNumber(astate!.cVideo!.viewsCounter)} views • '+
+                            '${timeago.format(astate!.cVideo!.timestamp)} ',
                       ),
                       TextSpan(
-                        text: currentVideo.tags.join(' '),
+                        text: astate!.cVideo!.tags.join(' '),
                         style: const TextStyle(
                             // color: linkBlue,
                             fontWeight: FontWeight.bold),
