@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yt_clone_webplayer/state/yt_globals.dart';
 import 'package:yt_clone_webplayer/state/yt_state.dart';
 import 'package:yt_clone_webplayer/state/AppStateModel.dart';
-import 'package:yt_clone_webplayer/vid_screen/video_details_page.dart';
+import 'package:yt_clone_webplayer/vid_screen/video_page.dart';
 
 class YT_Miniplayer extends StatefulWidget {
    YT_Miniplayer({Key? key}) : super(key: key);
@@ -34,6 +34,9 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
     astate = scont!.state!;
     astate!.mp_snap_height = mp_snap_height;
     astate!.mp_adj_height = mp_adj_height;
+    astate!.mp_min_height = mp_min_height;
+    astate!.mp_max_height = mp_max_height;
+
     mp_adj_height = mp_min_height + (astate!.mp_drag_dist);
 
     if (mp_adj_height < mp_min_height){
@@ -50,10 +53,6 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
     astate!.drag_progress == false) {
       mp_adj_height = mp_max_height;
     }
-
-
-
-
 
     print("yt player build max height " + astate!.mp_drag_dist.toString() );
 
@@ -85,6 +84,10 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                       astate!.mp_drag_dist;
                   scont!.updateState();
               }
+
+              if (mp_adj_height < mp_min_height){
+                mp_adj_height = mp_min_height;
+              }
             }
             },
           onVerticalDragEnd: (DragEndDetails){
@@ -97,7 +100,7 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
             }
             astate!.mp_drag_dist = 0;
             astate!.drag_progress = false;
-            // scont!.updateState();
+            scont!.updateState();
           }
           ,
           child:
@@ -188,7 +191,7 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
 
 
     // color:Colors.blue
-                          child:VideoDetailPage(),))),
+                          child:VideoPage(),))),
                   ]),
 
 

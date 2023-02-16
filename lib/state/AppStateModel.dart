@@ -8,6 +8,8 @@ class AppState{
   double mp_drag_dist = 0.0;
   double mp_adj_height = 0.0;
   double mp_snap_height = 0.0;
+  double mp_min_height = 0.0;
+  double mp_max_height = 0.0;
 
   //current user
   Channel? cUser;
