@@ -54,6 +54,7 @@ class _VidOverlayState extends State<VidOverlay> {
                           dud_dist = dud_dist + dud.delta.distance;
                             // astate!.mp_expanded = false;
                             astate!.mp_drag_dist = astate!.mp_drag_dist + dud.delta.distance;
+                          astate!.drag_progress = true;
                           scont!.updateState();
 
                           },
@@ -61,6 +62,7 @@ class _VidOverlayState extends State<VidOverlay> {
                             Future.delayed(Duration(milliseconds: 100),() {
                               setState(() {
                                 astate!.mp_drag_dist = 0.0;
+                                astate!.drag_progress = false;
                               });
                               scont!.updateState();
                             });

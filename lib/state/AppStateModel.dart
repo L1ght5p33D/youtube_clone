@@ -4,6 +4,7 @@ import 'package:yt_clone_webplayer/state/vid_data.dart';
 class AppState{
 
   bool mp_expanded = false;
+  bool drag_progress = false;
   double mp_drag_dist = 0.0;
 
   //current user

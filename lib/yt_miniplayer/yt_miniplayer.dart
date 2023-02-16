@@ -26,6 +26,7 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
   double mp_max_height = ss.height * .88;
   double mp_adj_height = 0.0;
   double mp_min_height = ss.height * .12;
+  double mp_snap_height = ss.height * .3;
 
   bool expand_drag_in_progress = false;
   double expand_drag_distance = 0.0;
@@ -50,6 +51,7 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
     else{
       mp_adj_height = mp_min_height + (expand_drag_distance);
     }
+
     print("yt player build max height " + astate!.mp_drag_dist.toString() );
 
     return
@@ -68,22 +70,43 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
             if (astate!.mp_expanded == false){
               setState(() {
                 expand_drag_in_progress = true;
+                astate!.drag_progress = true;
               });
+              scont!.updateState();
             }
           },
           onVerticalDragUpdate: (DragUpdateDetails dud){
             print("mp mini vertical drag dets " + dud.toString());
-              setState(() {
-                expand_drag_distance = expand_drag_distance + dud.delta.distance;
-              });
+            if (dud.delta.distance > 0) {
+              double new_height  = mp_min_height + (expand_drag_distance - dud.delta.dy);
+              if (new_height > mp_min_height) {
+                setState(() {
+                  expand_drag_distance =
+                      expand_drag_distance - dud.delta.dy;
+                });
+              }
+            }
             },
           onVerticalDragEnd: (DragEndDetails){
+            if (mp_adj_height > mp_snap_height) {
+                  setState(() {
+                  astate!.mp_expanded = true;
+                  widget.expanded = true;
+                  });
+                  }
+            if (mp_adj_height < mp_snap_height) {
+              setState(() {
+                astate!.mp_expanded = false;
+                widget.expanded = false;
+              });
+            }
             setState(() {
-              astate!.mp_expanded = true;
-              widget.expanded = true;
-              expand_drag_in_progress = false;
-              expand_drag_distance = 0;
+            expand_drag_in_progress = false;
+            expand_drag_distance = 0;
             });
+            astate!.drag_progress = false;
+            scont!.updateState();
+
           }
           ,
           child:
@@ -159,7 +182,7 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                             child:Container(
 
                           width: (widget.expanded == false && expand_drag_in_progress == false)?
-                          ss.width * .5 :(expand_drag_in_progress)? (mp_adj_height/mp_max_height) * ss.width : ss.width,
+                          ss.width * .5 :(expand_drag_in_progress && mp_adj_height < mp_snap_height)?(ss.width/2) +( (mp_adj_height/mp_snap_height) *( ss.width /2)) : ss.width,
                           // color:Colors.blue
                           child:VideoDetailPage(),))),
                   ]),
