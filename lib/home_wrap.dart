@@ -3,6 +3,7 @@ import 'package:miniplayer/miniplayer.dart';
 import 'package:yt_clone_webplayer/state/yt_globals.dart';
 import 'package:yt_clone_webplayer/home_page.dart';
 import 'package:yt_clone_webplayer/vid_screen/video_details_page.dart';
+import 'package:yt_clone_webplayer/yt_miniplayer/yt_miniplayer.dart';
 import 'package:yt_clone_webplayer/state/yt_state.dart';
 import 'package:yt_clone_webplayer/state/AppStateModel.dart';
 
@@ -21,14 +22,13 @@ class _YTHomeState extends State<YTHome> {
   AppStateContainerState? scont;
   AppState? astate;
 
-  MiniplayerController mp_controller = MiniplayerController();
 
   @override
   Widget build(BuildContext context) {
     scont = AppStateContainer.of(context);
     astate = scont!.state!;
-    astate!.mp_controller = mp_controller;
     ss = MediaQuery.of(context).size;
+
 
     return Scaffold(
       body:
@@ -41,71 +41,8 @@ class _YTHomeState extends State<YTHome> {
               builder: (BuildContext context) => HomeList(),
             ),
           ),
-          astate!.cVideo != null?
-          Miniplayer(
-              minHeight: astate!.cVideo == null? 0.0: ss.height*.09,
-              maxHeight: ss.height * .88 ,
-              controller: mp_controller,
-              builder: (height, percentage) => Center(
-                  child:
-                  Stack(children:[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children:[
-                        // Transform(transform:
-                        // Matrix4(
-                        //   1 / (percentage + .75) ,0,0,0,
-                        //   0,1,0,0,
-                        //   0,0,1,0,
-                        //   0,0,0,1,),
-                        //     alignment: FractionalOffset.centerRight,
-                        //     child:
-                        Container(
-                            width: ss.width*.5,
-                            color:Colors.green,
-                            child:Row(children: [
-                              Flexible(child:
-                              Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children:[
-                                    Text(astate!.cVideo!.title,
-                                      style: TextStyle(overflow: TextOverflow.ellipsis,
-                                          fontSize: ss.width*.03),),
-                                    Text(astate!.cVideo!.channel.name,
-                                      style: TextStyle(overflow: TextOverflow.ellipsis,
-                                          fontSize: ss.width*.03),),
-                                  ])),
-                              Icon(Icons.play_arrow),
-                              GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      astate!.cVideo = null;
-                                    });
-                                  },
-                                  child:Icon(Icons.clear))
-                            ],)
-                        )
-                      ],),
+        YT_Miniplayer(expanded: astate!.mp_expanded , drag_val: 0.0)
 
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Transform(transform:
-                          Matrix4(
-                            (percentage )  ,0,0,0,
-                            0,1,0,0,
-                            0,0,1,0,
-                            0,0,0,1,),
-                              alignment: FractionalOffset.center,
-                              child: Container(
-                                  width: ss.width * .5,
-                                  // color:Colors.blue
-                              child:VideoDetailPage(),)),
-                        ]),
-
-
-                  ])
-              )): Container(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

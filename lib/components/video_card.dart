@@ -33,6 +33,7 @@ class _VideoCardState extends State<VideoCard> {
               onTap: () {
                 setState(() {
                   astate!.cVideo = widget.video;
+                  astate!.mp_expanded = true;
                 });
               },
               child: Image.network(

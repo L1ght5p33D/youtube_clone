@@ -4,7 +4,7 @@ import 'package:miniplayer/miniplayer.dart';
 
 class AppState{
 
-  MiniplayerController? mp_controller;
+  bool mp_expanded = false;
 
   //current user
   Channel? cUser;

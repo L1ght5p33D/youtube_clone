@@ -35,7 +35,7 @@ class _VidOverlayState extends State<VidOverlay> {
 
                         onVerticalDragDown: (DragDownDetails dd_dets){
                           print("vdd");
-                              astate!.mp_controller!.animateToHeight(height: 0.0);
+
                         },
                       child:Icon(Icons.keyboard_arrow_down)),
                     ],)),
