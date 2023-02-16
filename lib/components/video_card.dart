@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:miniplayer/miniplayer.dart';
 import 'package:yt_clone_webplayer/state/yt_globals.dart';
 import 'package:yt_clone_webplayer/vid_screen/video_details_page.dart';
 import 'package:yt_clone_webplayer/state/vid_data.dart';
@@ -33,8 +32,17 @@ class _VideoCardState extends State<VideoCard> {
               onTap: () {
                 setState(() {
                   astate!.cVideo = widget.video;
-                  astate!.mp_expanded = true;
+                  astate!.mp_expanded = false;
                 });
+                scont!.updateState();
+                Future.delayed(Duration(milliseconds: 100),() {
+                  setState(() {
+                    astate!.mp_expanded = true;
+                    astate!.mp_color = Colors.tealAccent;
+                  });
+                  scont!.updateState();
+                });
+
               },
               child: Image.network(
                 widget.video.miniatureImagePath,

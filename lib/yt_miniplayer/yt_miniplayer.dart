@@ -7,10 +7,12 @@ import 'package:yt_clone_webplayer/vid_screen/video_details_page.dart';
 class YT_Miniplayer extends StatefulWidget {
    YT_Miniplayer({Key? key,
      this.expanded=false,
-     this.drag_val=0.0}) : super(key: key);
+     this.drag_val=0.0,
+   this.color = Colors.purple}) : super(key: key);
 
   bool expanded;
   double drag_val;
+  Color color;
 
   @override
   _YT_MiniplayerState createState() => _YT_MiniplayerState();
@@ -26,11 +28,17 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
     scont = AppStateContainer.of(context);
     astate = scont!.state!;
 
-    return AnimatedContainer(
-      duration: Duration(seconds:1),
-            height: widget.expanded == true ? ss.height * .88: ss.height*.12,
-            child:
-            Stack(children:[
+
+    return
+      astate!.cVideo == null? Container():
+      AnimatedSize(
+      duration: Duration(seconds:2),
+          curve: Curves.easeOut,
+          alignment: Alignment.bottomCenter,
+          child:Container(
+    height: widget.expanded == true ? ss.height * .88: ss.height*.12,
+    color: widget.color,
+            child: Stack(children:[
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children:[
@@ -44,7 +52,7 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                   //     child:
                   Container(
                       width: ss.width*.5,
-                      color:Colors.green,
+                      // color:Colors.green,
                       child:Row(children: [
                         Flexible(child:
                         Column(
@@ -86,7 +94,7 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                   ]),
 
 
-            ])
+            ]))
         );
   }
 }

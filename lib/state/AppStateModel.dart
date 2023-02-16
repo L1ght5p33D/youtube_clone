@@ -1,10 +1,10 @@
-
+import 'package:flutter/material.dart';
 import 'package:yt_clone_webplayer/state/vid_data.dart';
-import 'package:miniplayer/miniplayer.dart';
 
 class AppState{
 
   bool mp_expanded = false;
+  Color mp_color = Colors.yellow;
 
   //current user
   Channel? cUser;

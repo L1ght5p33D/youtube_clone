@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:miniplayer/miniplayer.dart';
 import 'package:yt_clone_webplayer/state/yt_globals.dart';
 import 'package:yt_clone_webplayer/home_page.dart';
 import 'package:yt_clone_webplayer/vid_screen/video_details_page.dart';
@@ -29,6 +28,7 @@ class _YTHomeState extends State<YTHome> {
     astate = scont!.state!;
     ss = MediaQuery.of(context).size;
 
+    print("build home");
 
     return Scaffold(
       body:
@@ -41,7 +41,7 @@ class _YTHomeState extends State<YTHome> {
               builder: (BuildContext context) => HomeList(),
             ),
           ),
-        YT_Miniplayer(expanded: astate!.mp_expanded , drag_val: 0.0)
+        YT_Miniplayer(expanded: astate!.mp_expanded , drag_val: 0.0, color: astate!.mp_color)
 
         ],
       ),
