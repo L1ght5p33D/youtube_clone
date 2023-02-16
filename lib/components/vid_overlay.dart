@@ -16,9 +16,6 @@ class _VidOverlayState extends State<VidOverlay> {
   AppStateContainerState? scont;
   AppState? astate;
 
-  // drag update drag dist
-  double dud_dist = 0.0;
-
   @override
   Widget build(BuildContext context) {
     scont = AppStateContainer.of(context);
@@ -50,22 +47,26 @@ class _VidOverlayState extends State<VidOverlay> {
                           onVerticalDragUpdate: (DragUpdateDetails dud){
                           print("drag update delta ~ " + dud.toString());
                           print("drag update primary delta~ " + dud.primaryDelta.toString());
-
-                          dud_dist = dud_dist + dud.delta.distance;
-                            // astate!.mp_expanded = false;
-                            astate!.mp_drag_dist = astate!.mp_drag_dist + dud.delta.distance;
                           astate!.drag_progress = true;
+                            astate!.mp_drag_dist = astate!.mp_drag_dist
+                                - dud.delta.dy;
+
                           scont!.updateState();
 
                           },
                           onVerticalDragEnd: ( DragEndDetails ded ){
-                            Future.delayed(Duration(milliseconds: 100),() {
-                              setState(() {
+
+                            // Future.delayed(Duration(milliseconds: 100),() {
                                 astate!.mp_drag_dist = 0.0;
                                 astate!.drag_progress = false;
-                              });
+                              if (astate!.mp_adj_height < astate!.mp_snap_height){
+                                astate!.mp_expanded = false;
+                              }
+                              if (astate!.mp_adj_height > astate!.mp_snap_height){
+                                astate!.mp_expanded = true;
+                              }
                               scont!.updateState();
-                            });
+                            // });
                           },
 
                           onPanStart:(DragStartDetails dsd){
@@ -91,12 +92,12 @@ class _VidOverlayState extends State<VidOverlay> {
                           //         dd_dets.globalPosition.distance;
                           //   });
                           // }
-                          if (dd_dets.localPosition.distance > 55) {
-                            setState(() {
-                              astate!.mp_expanded = false;
-                            });
-                            scont!.updateState();
-                          }
+                          // if (dd_dets.localPosition.distance > 55) {
+                          //   setState(() {
+                          //     astate!.mp_expanded = false;
+                          //   });
+                          //   scont!.updateState();
+                          // }
 
                           // Future.delayed(Duration(milliseconds: 100),() {
                           //

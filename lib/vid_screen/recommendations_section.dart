@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yt_clone_webplayer/vid_screen/video_miniature.dart';
 import 'package:yt_clone_webplayer/state/vid_data.dart';
 import 'package:yt_clone_webplayer/state/yt_state.dart';
 import 'package:yt_clone_webplayer/state/AppStateModel.dart';

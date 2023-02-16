@@ -28,6 +28,7 @@ class _YTHomeState extends State<YTHome> {
     astate = scont!.state!;
     ss = MediaQuery.of(context).size;
 
+
     print("build home");
 
     return Scaffold(
@@ -44,7 +45,7 @@ class _YTHomeState extends State<YTHome> {
         Positioned(
             bottom: 0.0,
             child:
-        YT_Miniplayer(expanded: astate!.mp_expanded , drag_val: 0.0,))
+        YT_Miniplayer())
 
         ],
       ),

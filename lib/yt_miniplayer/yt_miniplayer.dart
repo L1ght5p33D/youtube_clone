@@ -5,13 +5,7 @@ import 'package:yt_clone_webplayer/state/AppStateModel.dart';
 import 'package:yt_clone_webplayer/vid_screen/video_details_page.dart';
 
 class YT_Miniplayer extends StatefulWidget {
-   YT_Miniplayer({Key? key,
-     this.expanded=false,
-     this.drag_val=0.0,
-   }) : super(key: key);
-
-  bool expanded;
-  double drag_val;
+   YT_Miniplayer({Key? key}) : super(key: key);
 
 
   @override
@@ -28,29 +22,38 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
   double mp_min_height = ss.height * .12;
   double mp_snap_height = ss.height * .3;
 
-  bool expand_drag_in_progress = false;
-  double expand_drag_distance = 0.0;
 
+  @override
+  void initState() {
+    mp_adj_height = mp_max_height;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     scont = AppStateContainer.of(context);
     astate = scont!.state!;
+    astate!.mp_snap_height = mp_snap_height;
+    astate!.mp_adj_height = mp_adj_height;
+    mp_adj_height = mp_min_height + (astate!.mp_drag_dist);
 
-    if (mp_max_height - (astate!.mp_drag_dist) < ss.height * .3){
-      widget.expanded = false;
-      Future.delayed(Duration.zero,(){
-      astate!.mp_expanded = false;
-        astate!.mp_drag_dist = 0.0;
-        scont!.updateState();
-      });
+    if (mp_adj_height < mp_min_height){
+      mp_adj_height = mp_min_height;
+    }
+    if (mp_adj_height > mp_max_height){
+      mp_adj_height = mp_max_height;
+    }
+    if (astate!.mp_expanded == true &&
+        astate!.drag_progress == true) {
+      mp_adj_height = mp_max_height + astate!.mp_drag_dist;
+    }
+    if (astate!.mp_expanded == true &&
+    astate!.drag_progress == false) {
+      mp_adj_height = mp_max_height;
     }
 
-    if (expand_drag_in_progress != true) {
-      mp_adj_height = mp_max_height - (astate!.mp_drag_dist);
-    }
-    else{
-      mp_adj_height = mp_min_height + (expand_drag_distance);
-    }
+
+
+
 
     print("yt player build max height " + astate!.mp_drag_dist.toString() );
 
@@ -58,70 +61,61 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
       astate!.cVideo == null? Container():
       GestureDetector(
           onTap:(){
-            if(widget.expanded == false){
-              setState(() {
-                widget.expanded = true;
-              });
+            if( astate!.mp_expanded  == false){
               astate!.mp_expanded = true;
-              scont!.updateState();
+              // scont!.updateState();
             }
           },
           onVerticalDragStart: ( DragStartDetails dsd ){
-            if (astate!.mp_expanded == false){
-              setState(() {
-                expand_drag_in_progress = true;
                 astate!.drag_progress = true;
-              });
-              scont!.updateState();
-            }
+              // scont!.updateState();
           },
           onVerticalDragUpdate: (DragUpdateDetails dud){
             print("mp mini vertical drag dets " + dud.toString());
             if (dud.delta.distance > 0) {
-              double new_height  = mp_min_height + (expand_drag_distance - dud.delta.dy);
-              if (new_height > mp_min_height) {
-                setState(() {
-                  expand_drag_distance =
-                      expand_drag_distance - dud.delta.dy;
-                });
+              print("Delta idst> 0");
+              double new_height  = mp_min_height +
+                  (astate!.mp_drag_dist - dud.delta.dy);
+
+              if (new_height >= mp_min_height) {
+                print("new height above min");
+                astate!.mp_drag_dist =
+                      astate!.mp_drag_dist - dud.delta.dy;
+                  mp_adj_height = mp_min_height +
+                      astate!.mp_drag_dist;
+                  scont!.updateState();
               }
             }
             },
           onVerticalDragEnd: (DragEndDetails){
+            print("drag end called");
             if (mp_adj_height > mp_snap_height) {
-                  setState(() {
                   astate!.mp_expanded = true;
-                  widget.expanded = true;
-                  });
                   }
             if (mp_adj_height < mp_snap_height) {
-              setState(() {
                 astate!.mp_expanded = false;
-                widget.expanded = false;
-              });
             }
-            setState(() {
-            expand_drag_in_progress = false;
-            expand_drag_distance = 0;
-            });
+            astate!.mp_drag_dist = 0;
             astate!.drag_progress = false;
-            scont!.updateState();
-
+            // scont!.updateState();
           }
           ,
           child:
       AnimatedSize(
       duration: Duration(milliseconds:500),
           curve: Curves.fastOutSlowIn,
-          alignment: Alignment.topCenter,
+          alignment: Alignment.bottomCenter,
           child:
               Container(
               width: ss.width,
-              height: (widget.expanded == true && expand_drag_in_progress == false) ? mp_adj_height :
-              (expand_drag_in_progress) ?mp_adj_height : mp_min_height,
-    color: yt_bg_accent_color,
+              height: mp_adj_height
+            ,
+              // height: (widget.expanded == true && astate!.drag_progress == false) ? mp_adj_height :
+              //               (astate!.drag_progress) ?mp_adj_height : mp_min_height,
+
+          color: yt_bg_accent_color,
             child: Stack(children:[
-              widget.expanded == false?
+              // astate!.mp_expanded  == false?
               AnimatedSize(
                   duration: Duration(milliseconds:500),
                   curve: Curves.fastOutSlowIn,
@@ -163,7 +157,8 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                             child:Icon(Icons.clear))
                       ],)
                   )
-                ],)):Container(),
+                ],)),
+                  // :Container(),
 
               Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -181,9 +176,18 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                             alignment: Alignment.bottomCenter,
                             child:Container(
 
-                          width: (widget.expanded == false && expand_drag_in_progress == false)?
-                          ss.width * .5 :(expand_drag_in_progress && mp_adj_height < mp_snap_height)?(ss.width/2) +( (mp_adj_height/mp_snap_height) *( ss.width /2)) : ss.width,
-                          // color:Colors.blue
+                          width: ( astate!.mp_expanded == false &&
+                              astate!.drag_progress == false)?
+                          ss.width * .5 :
+                          (astate!.drag_progress &&
+                              mp_adj_height < mp_snap_height)?
+                          (ss.width/2) +
+                              ( ((mp_adj_height - mp_min_height )/mp_snap_height)
+                                  * ( ss.width /2)) :
+                          ss.width,
+
+
+    // color:Colors.blue
                           child:VideoDetailPage(),))),
                   ]),
 

@@ -30,11 +30,10 @@ class _VideoCardState extends State<VideoCard> {
           children: [
             GestureDetector(
               onTap: () {
-                setState(() {
                   astate!.cVideo = widget.video;
                   astate!.mp_expanded = false;
                   astate!.mp_drag_dist = 0.0;
-                });
+
                 scont!.updateState();
                 Future.delayed(Duration(milliseconds: 100),() {
                   setState(() {

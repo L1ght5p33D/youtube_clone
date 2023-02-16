@@ -10,38 +10,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 
 
-class VideoDescription extends StatefulWidget {
-  VideoDescription({Key? key}) : super(key: key);
 
-
-  @override
-  _VideoDescriptionState createState() => _VideoDescriptionState();
-}
-
-class _VideoDescriptionState extends State<VideoDescription> {
-
-  AppStateContainerState? scont;
-  AppState? astate;
-
-  @override
-  Widget build(BuildContext context) {
-    scont = AppStateContainer.of(context);
-    astate = scont!.state!;
-    return Container(
-      child: Column(
-        children: [
-          Stack(children:[
-
-          VideoMiniature(path: astate!.cVideo!.miniatureImagePath),
-            VidOverlay()
-
-          ]),
-          VideoDetailsPanel(),
-        ],
-      ),
-    );
-  }
-}
 
 class VideoDetailsPanel extends StatelessWidget {
   VideoDetailsPanel({Key? key}) : super(key: key);

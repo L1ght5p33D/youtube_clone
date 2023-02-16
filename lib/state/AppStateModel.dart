@@ -6,6 +6,8 @@ class AppState{
   bool mp_expanded = false;
   bool drag_progress = false;
   double mp_drag_dist = 0.0;
+  double mp_adj_height = 0.0;
+  double mp_snap_height = 0.0;
 
   //current user
   Channel? cUser;
