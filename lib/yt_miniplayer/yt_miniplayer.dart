@@ -24,6 +24,11 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
 
 
   double mp_max_height = ss.height * .88;
+  double mp_adj_height = 0.0;
+  double mp_min_height = ss.height * .12;
+
+  bool expand_drag_in_progress = false;
+  double expand_drag_distance = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,32 +44,66 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
       });
     }
 
+    if (expand_drag_in_progress != true) {
+      mp_adj_height = mp_max_height - (astate!.mp_drag_dist);
+    }
+    else{
+      mp_adj_height = mp_min_height + (expand_drag_distance);
+    }
     print("yt player build max height " + astate!.mp_drag_dist.toString() );
 
     return
       astate!.cVideo == null? Container():
+      GestureDetector(
+          onTap:(){
+            if(widget.expanded == false){
+              setState(() {
+                widget.expanded = true;
+              });
+              astate!.mp_expanded = true;
+              scont!.updateState();
+            }
+          },
+          onVerticalDragStart: ( DragStartDetails dsd ){
+            if (astate!.mp_expanded == false){
+              setState(() {
+                expand_drag_in_progress = true;
+              });
+            }
+          },
+          onVerticalDragUpdate: (DragUpdateDetails dud){
+            print("mp mini vertical drag dets " + dud.toString());
+              setState(() {
+                expand_drag_distance = expand_drag_distance + dud.delta.distance;
+              });
+            },
+          onVerticalDragEnd: (DragEndDetails){
+            setState(() {
+              astate!.mp_expanded = true;
+              widget.expanded = true;
+              expand_drag_in_progress = false;
+              expand_drag_distance = 0;
+            });
+          }
+          ,
+          child:
       AnimatedSize(
       duration: Duration(milliseconds:500),
           curve: Curves.fastOutSlowIn,
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.topCenter,
           child:
-              GestureDetector(
-    onTap:(){
-          if(widget.expanded == false){
-            setState(() {
-              widget.expanded = true;
-            });
-              astate!.mp_expanded = true;
-            scont!.updateState();
-            }
-          },
-          child: Container(
+              Container(
               width: ss.width,
-              height: widget.expanded == true ? mp_max_height - (astate!.mp_drag_dist): ss.height*.12,
-    color: Colors.transparent,
+              height: (widget.expanded == true && expand_drag_in_progress == false) ? mp_adj_height :
+              (expand_drag_in_progress) ?mp_adj_height : mp_min_height,
+    color: yt_bg_accent_color,
             child: Stack(children:[
               widget.expanded == false?
-              Row(
+              AnimatedSize(
+                  duration: Duration(milliseconds:500),
+                  curve: Curves.fastOutSlowIn,
+                  alignment: Alignment.bottomCenter,
+                  child:Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children:[
                   // Transform(transform:
@@ -101,23 +140,28 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                             child:Icon(Icons.clear))
                       ],)
                   )
-                ],):Container(),
+                ],)):Container(),
 
               Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Transform(transform:
                     Matrix4(
-                      ( 1 )  ,0,0,0,
+                      (1 )  ,0,0,0,
                       0,1,0,0,
                       0,0,1,0,
                       0,0,0,1,),
                         alignment: FractionalOffset.center,
-                        child: Container(
+                        child:  AnimatedSize(
+                            duration: Duration(milliseconds:200),
+                            curve: Curves.fastOutSlowIn,
+                            alignment: Alignment.bottomCenter,
+                            child:Container(
 
-                          width: widget.expanded == false? ss.width * .5: ss.width,
+                          width: (widget.expanded == false && expand_drag_in_progress == false)?
+                          ss.width * .5 :(expand_drag_in_progress)? (mp_adj_height/mp_max_height) * ss.width : ss.width,
                           // color:Colors.blue
-                          child:VideoDetailPage(),)),
+                          child:VideoDetailPage(),))),
                   ]),
 
 
