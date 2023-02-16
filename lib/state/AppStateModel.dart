@@ -4,7 +4,7 @@ import 'package:yt_clone_webplayer/state/vid_data.dart';
 class AppState{
 
   bool mp_expanded = false;
-  Color mp_color = Colors.yellow;
+  double mp_drag_dist = 0.0;
 
   //current user
   Channel? cUser;

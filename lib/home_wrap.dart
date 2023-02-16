@@ -41,7 +41,10 @@ class _YTHomeState extends State<YTHome> {
               builder: (BuildContext context) => HomeList(),
             ),
           ),
-        YT_Miniplayer(expanded: astate!.mp_expanded , drag_val: 0.0, color: astate!.mp_color)
+        Positioned(
+            bottom: 0.0,
+            child:
+        YT_Miniplayer(expanded: astate!.mp_expanded , drag_val: 0.0,))
 
         ],
       ),

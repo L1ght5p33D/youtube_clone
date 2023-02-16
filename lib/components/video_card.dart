@@ -33,12 +33,12 @@ class _VideoCardState extends State<VideoCard> {
                 setState(() {
                   astate!.cVideo = widget.video;
                   astate!.mp_expanded = false;
+                  astate!.mp_drag_dist = 0.0;
                 });
                 scont!.updateState();
                 Future.delayed(Duration(milliseconds: 100),() {
                   setState(() {
                     astate!.mp_expanded = true;
-                    astate!.mp_color = Colors.tealAccent;
                   });
                   scont!.updateState();
                 });
