@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:yt_clone_webplayer/vid_overlay.dart';
-import 'package:yt_clone_webplayer/yt_globals.dart';
-import 'package:yt_clone_webplayer/vid_data.dart';
-import 'package:yt_clone_webplayer/yt_state.dart';
-import 'package:yt_clone_webplayer/AppStateModel.dart';
+import 'package:yt_clone_webplayer/components/vid_overlay.dart';
+import 'package:yt_clone_webplayer/state/yt_globals.dart';
+import 'package:yt_clone_webplayer/state/vid_data.dart';
+import 'package:yt_clone_webplayer/state/yt_state.dart';
+import 'package:yt_clone_webplayer/state/AppStateModel.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 

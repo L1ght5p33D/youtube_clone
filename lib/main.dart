@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yt_clone_webplayer/home_wrap.dart';
-import 'package:yt_clone_webplayer/video_details_page.dart';
-import 'package:yt_clone_webplayer/yt_state.dart';
+import 'package:yt_clone_webplayer/vid_screen/video_details_page.dart';
+import 'package:yt_clone_webplayer/state/yt_state.dart';
 
 
 void main() {

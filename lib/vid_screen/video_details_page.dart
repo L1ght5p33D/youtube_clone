@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:yt_clone_webplayer/vid_data.dart';
-import 'package:yt_clone_webplayer/video_description.dart';
-import 'package:yt_clone_webplayer/action_buttons_bar.dart';
-import 'package:yt_clone_webplayer/subscriptions_bar.dart';
-import 'package:yt_clone_webplayer/comments_section.dart';
-import 'package:yt_clone_webplayer/recommendations_section.dart';
+import 'package:yt_clone_webplayer/state/vid_data.dart';
+import 'package:yt_clone_webplayer/vid_screen/video_description.dart';
+import 'package:yt_clone_webplayer/vid_screen/action_buttons_bar.dart';
+import 'package:yt_clone_webplayer/vid_screen/subscriptions_bar.dart';
+import 'package:yt_clone_webplayer/vid_screen/comments_section.dart';
+import 'package:yt_clone_webplayer/vid_screen/recommendations_section.dart';
 
 DraggableScrollableController scroll_controller = DraggableScrollableController();
 

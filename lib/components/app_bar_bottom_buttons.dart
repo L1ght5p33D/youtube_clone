@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yt_clone_webplayer/yt_globals.dart';
+import 'package:yt_clone_webplayer/state/yt_globals.dart';
 
 class YTAppBarBottomIB extends StatelessWidget {
   YTAppBarBottomIB({Key? key, required this.btext}) : super(key: key);

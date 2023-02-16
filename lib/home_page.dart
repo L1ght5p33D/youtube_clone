@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:yt_clone_webplayer/yt_globals.dart';
-import 'package:yt_clone_webplayer/video_card.dart';
-import 'package:yt_clone_webplayer/yt_state.dart';
-import 'package:yt_clone_webplayer/AppStateModel.dart';
-import 'package:yt_clone_webplayer/app_bar_bottom_buttons.dart';
+import 'package:yt_clone_webplayer/state/yt_globals.dart';
+import 'package:yt_clone_webplayer/components/video_card.dart';
+import 'package:yt_clone_webplayer/state/yt_state.dart';
+import 'package:yt_clone_webplayer/state/AppStateModel.dart';
+import 'package:yt_clone_webplayer/components/app_bar_bottom_buttons.dart';
 
 class HomeList extends StatelessWidget {
   AppStateContainerState? scont;

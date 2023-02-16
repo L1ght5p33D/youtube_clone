@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yt_clone_webplayer/yt_globals.dart';
-import 'package:yt_clone_webplayer/yt_state.dart';
-import 'package:yt_clone_webplayer/AppStateModel.dart';
+import 'package:yt_clone_webplayer/state/yt_globals.dart';
+import 'package:yt_clone_webplayer/state/yt_state.dart';
+import 'package:yt_clone_webplayer/state/AppStateModel.dart';
 
 class VidOverlay extends StatefulWidget {
   VidOverlay({Key? key}) : super(key: key);

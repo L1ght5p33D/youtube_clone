@@ -1,5 +1,5 @@
 
-import 'package:yt_clone_webplayer/vid_data.dart';
+import 'package:yt_clone_webplayer/state/vid_data.dart';
 import 'package:miniplayer/miniplayer.dart';
 
 class AppState{
