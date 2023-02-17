@@ -15,7 +15,7 @@ class SubscriptionBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[ChannelInformation(), SubscriptionStatus()],
+        children: <Widget>[Flexible(child:ChannelInformation()), SubscriptionStatus()],
       ),
     );
   }
@@ -51,20 +51,21 @@ class ChannelInformation extends StatelessWidget {
               ),
             ),
           ),
+          Flexible(child:
           Padding(
             padding: const EdgeInsets.only(left: 15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                Flexible(child:Text(
                   astate!.cVideo!.channel.name,
                   style: const TextStyle(
                       // color: accentLightGrey,
                     overflow: TextOverflow.ellipsis,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
-                ),
+                )),
                 const SizedBox(
                   height: 2,
                 ),
@@ -77,7 +78,7 @@ class ChannelInformation extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          )),
         ],
       ),
     );

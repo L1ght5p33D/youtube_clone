@@ -65,9 +65,9 @@ class AppStateContainerState extends State<AppStateContainer> {
     state!.cVideoComments = VideoComments(
         Comment(
             'assets/images/user1_pp.png',
-            'This video rox '
+            'This video is great '
                 'here is more stuff about the video i like '
-                ' And now the third line even of comment text'),
+                ' And now even more comment text'),
         numberOfComments: 799);
 
     state!.cVideo = null;

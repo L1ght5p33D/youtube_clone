@@ -10,7 +10,6 @@ class CommentsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: mainComponentsGrey,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15.0),
         child: Column(
@@ -51,13 +50,11 @@ class CommentsSectionHeader extends StatelessWidget {
                 const Text(
                   'Comments',
                   style: TextStyle(
-                      // color: accentLightGrey,
                       fontSize: 16),
                 ),
                 Text(
                   astate!.cVideoComments!.numberOfComments.toString(),
                   style: const TextStyle(
-                      // color: textLightGrey,
                       fontSize: 16),
                 )
               ],
@@ -114,7 +111,6 @@ class LastComment extends StatelessWidget {
                 overflow: TextOverflow.clip,
                 style: const TextStyle(
                   height: 1.75,
-                  // color: accentLightGrey,
                   fontSize: 13,
                 ),
               ),

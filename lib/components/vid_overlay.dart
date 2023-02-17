@@ -35,34 +35,25 @@ class _VidOverlayState extends State<VidOverlay> {
                     children: [
                       GestureDetector(
                         onTap:(){
-                          setState(() {
-                            astate!.mp_expanded = true;
-                          });
-                          scont!.updateState();
-                          Future.delayed(Duration(milliseconds: 100),() {
-                            setState(() {
                               astate!.mp_expanded = false;
-                            });
                             scont!.updateState();
-                          });
                         },
                           onVerticalDragUpdate: (DragUpdateDetails dud){
-                          print("drag update delta ~ " + dud.toString());
-                          print("drag update primary delta~ " + dud.primaryDelta.toString());
-                          astate!.drag_progress = true;
-                          if (astate!.mp_adj_height < astate!.mp_min_height){
-                            astate!.mp_drag_dist = astate!.mp_drag_dist;
-                          }else {
-                            astate!.mp_drag_dist = astate!.mp_drag_dist
-                                - dud.delta.dy;
-                          }
-                          print("astate max height ~ " + astate!.mp_max_height.toString());
-                            print("astate drag dist ~ " + astate!.mp_drag_dist.toString());
+                            print("drag update delta ~ " + dud.toString());
+                            print("drag update primary delta~ " + dud.primaryDelta.toString());
+                            astate!.drag_progress = true;
+                            if (astate!.mp_adj_height < astate!.mp_min_height){
+                              astate!.mp_drag_dist = astate!.mp_drag_dist;
+                            }else {
+                              astate!.mp_drag_dist = astate!.mp_drag_dist
+                                  - dud.delta.dy;
+                            }
+                              print("astate max height ~ " + astate!.mp_max_height.toString());
+                              print("astate drag dist ~ " + astate!.mp_drag_dist.toString());
 
+                              astate!.mp_adj_height = astate!.mp_max_height + astate!.mp_drag_dist;
 
-                            astate!.mp_adj_height = astate!.mp_max_height + astate!.mp_drag_dist;
-
-                          scont!.updateState();
+                            scont!.updateState();
 
                           },
                           onVerticalDragEnd: ( DragEndDetails ded ){

@@ -24,20 +24,23 @@ class HomeList extends StatelessWidget {
                   height: ss.height * .04,),
                 Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [Icon(Icons.wifi_tethering_sharp,
-                      size:ss.height * .027),
+                  children: [
                     Padding(
-                        padding: EdgeInsets.symmetric(horizontal: ss.width*.01),
+                      padding: EdgeInsets.symmetric(horizontal: ss.width*.02),
+                      child:Icon(Icons.wifi_tethering_sharp,
+                      size:ss.height * .027)),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: ss.width*.02),
                         child:
                         Icon(Icons.notifications_none,
                             size:ss.height * .027)),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: ss.width*.01),
+                      padding: EdgeInsets.symmetric(horizontal: ss.width*.02),
                       child:
                       Icon(Icons.search,
                           size:ss.height * .027),),
                     Padding(
-                        padding: EdgeInsets.symmetric(horizontal: ss.width*.01),
+                        padding: EdgeInsets.symmetric(horizontal: ss.width*.02),
                         child:
                         ClipRRect(
                             borderRadius: BorderRadius.circular(ss.height * .015),

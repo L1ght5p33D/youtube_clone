@@ -30,13 +30,11 @@ class ActionButton extends StatelessWidget {
           children: [
             Icon(
               actionIcon,
-              // color: accentLightGrey,
               size: 20,
             ),
             Text(
               bottomLabel,
               style: const TextStyle(
-                  // color: accentLightGrey,
                   fontSize: 12),
             )
           ],
@@ -84,7 +82,6 @@ class ActionButtonsBar extends StatelessWidget {
     ];
     return Container(
       width: MediaQuery.of(context).size.width,
-      // color: mainComponentsGrey,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),

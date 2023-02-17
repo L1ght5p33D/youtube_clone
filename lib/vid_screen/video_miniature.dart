@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:yt_clone_webplayer/state/yt_globals.dart';
 class VideoMiniature extends StatelessWidget {
   final String path;
 
@@ -8,10 +8,8 @@ class VideoMiniature extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).orientation == Orientation.portrait
-          ? MediaQuery.of(context).size.width
-          : MediaQuery.of(context).size.width / 3.5,
-      height: MediaQuery.of(context).size.height / 3.5,
+      width:ss.width,
+      height: ss.height / 3.5,
       decoration: BoxDecoration(
         image: DecorationImage(image: NetworkImage(path), fit: BoxFit.fill),
       ),
