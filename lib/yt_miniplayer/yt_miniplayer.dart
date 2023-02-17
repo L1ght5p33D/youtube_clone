@@ -130,9 +130,9 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                         Icon(Icons.play_arrow),
                         GestureDetector(
                             onTap: (){
-                              setState(() {
-                                astate!.cVideo = null;
-                              });
+                              astate!.cVideo = null;
+                              setState(() {});
+
                             },
                             child:Icon(Icons.clear))
                       ],)

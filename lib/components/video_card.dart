@@ -36,9 +36,7 @@ class _VideoCardState extends State<VideoCard> {
 
                 scont!.updateState();
                 Future.delayed(Duration(milliseconds: 100),() {
-                  setState(() {
                     astate!.mp_expanded = true;
-                  });
                   scont!.updateState();
                 });
 

@@ -8,10 +8,6 @@ import 'package:yt_clone_webplayer/state/AppStateModel.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 
-
-
-
-
 class VideoDetailsPanel extends StatelessWidget {
   VideoDetailsPanel({Key? key}) : super(key: key);
 

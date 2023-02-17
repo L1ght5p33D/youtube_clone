@@ -3,16 +3,36 @@ import 'package:yt_clone_webplayer/vid_screen/video_miniature.dart';
 import 'package:yt_clone_webplayer/state/vid_data.dart';
 import 'package:yt_clone_webplayer/state/yt_state.dart';
 import 'package:yt_clone_webplayer/state/AppStateModel.dart';
-
+import 'package:yt_clone_webplayer/state/yt_state.dart';
+import 'package:yt_clone_webplayer/state/AppStateModel.dart';
 
 class VideoRecommendation extends StatelessWidget {
   final Video videoData;
 
-  const VideoRecommendation(this.videoData, {Key? key}) : super(key: key);
+   VideoRecommendation(this.videoData, {Key? key}) : super(key: key);
+
+  AppStateContainerState? scont;
+  AppState? astate;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    scont = AppStateContainer.of(context);
+    astate = scont!.state!;
+    return
+      GestureDetector(
+    onTap:(){
+      astate!.cVideo = videoData;
+      astate!.mp_expanded = false;
+      astate!.mp_drag_dist = 0.0;
+
+      scont!.updateState();
+      Future.delayed(Duration(milliseconds: 100),() {
+          astate!.mp_expanded = true;
+        scont!.updateState();
+        astate!.vp_sc!.animateTo(0.0, duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+      });
+    },
+    child:  Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -37,7 +57,7 @@ class VideoRecommendation extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ));
   }
 }
 

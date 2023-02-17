@@ -18,11 +18,13 @@ class VideoPage extends StatelessWidget {
   AppState? astate;
 
 
+  ScrollController vid_page_scroll_controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     scont = AppStateContainer.of(context);
     astate = scont!.state!;
-
+    astate!.vp_sc = vid_page_scroll_controller;
 
       return
     // Scaffold(
@@ -32,6 +34,7 @@ class VideoPage extends StatelessWidget {
               Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
           child:SingleChildScrollView(
+            controller: vid_page_scroll_controller,
             scrollDirection: Axis.vertical,
             physics:
             (astate!.drag_progress == false

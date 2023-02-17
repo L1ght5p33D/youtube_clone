@@ -11,6 +11,8 @@ class AppState{
   double mp_min_height = 0.0;
   double mp_max_height = 0.0;
 
+  ScrollController? vp_sc;
+
   //current user
   Channel? cUser;
   // current video
