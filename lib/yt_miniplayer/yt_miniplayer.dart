@@ -144,10 +144,17 @@ class _YT_MiniplayerState extends State<YT_Miniplayer> {
                   children: [
                             AnimatedContainer(
                           duration:
-                  (astate!.drag_progress == false)?
-                          Duration(milliseconds:300):
+                  (astate!.drag_progress == false && astate!.mp_expanded == false)?
+                          Duration(milliseconds:400):
+                  (astate!.drag_progress == false && astate!.mp_expanded == true)?
+                  Duration(milliseconds:150):
                               Duration.zero,
-                          width: ( astate!.mp_expanded == false &&
+                          curve:
+                          (astate!.drag_progress == false && astate!.mp_expanded == false)?
+                          Curves.easeOutCubic:
+                              Curves.easeOut,
+                          width:
+                          ( astate!.mp_expanded == false &&
                               astate!.drag_progress == false)?
                           (ss.width * .5) :
                           (astate!.drag_progress &&

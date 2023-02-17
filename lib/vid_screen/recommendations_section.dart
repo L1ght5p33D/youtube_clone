@@ -19,7 +19,6 @@ class VideoRecommendation extends StatelessWidget {
         VideoMiniature(path: videoData.miniatureImagePath),
         Container(
           height: 70,
-          // color: mainComponentsGrey,
           child: Row(
             children: [
               VideoRecommendationDescription(videoData),

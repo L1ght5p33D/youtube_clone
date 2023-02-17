@@ -28,7 +28,8 @@ class _VidOverlayState extends State<VidOverlay> {
         Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(width:ss.width*.5,
+              Flexible(
+              child: Container(width:ss.width*.5,
                   child:Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +84,7 @@ class _VidOverlayState extends State<VidOverlay> {
 
                         },
                       child:Icon(Icons.keyboard_arrow_down)),
-                    ],)),
+                    ],))),
 
               Container(
                   width:ss.width*.5,

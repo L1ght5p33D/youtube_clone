@@ -41,15 +41,15 @@ class VideoPage extends StatelessWidget {
             child: Column(
               children: [
                 OLVideoPlayer(),
-                // Opacity(opacity:
-                // (astate!.mp_adj_height <= ss.height &&
-                //     astate!.mp_expanded == false)?
-                // math.pow(astate!.mp_adj_height,3 ) /
-                //     math.pow(ss.height, 3)  :
-                // (astate!.mp_adj_height < .1 * ss.height)?
-                //     0:(astate!.mp_expanded == true)? 1:1
-                //     ,
-                //     child:
+                Opacity(opacity:
+                (astate!.mp_adj_height <= ss.height &&
+                    astate!.mp_expanded == false)?
+                math.pow(astate!.mp_adj_height,3 ) /
+                    math.pow(ss.height, 3)  :
+                (astate!.mp_adj_height < .1 * ss.height)?
+                    0:(astate!.mp_expanded == true)? 1:1
+                    ,
+                    child:
                     Column(children:[
                 VideoDetailsPanel(),
                 ActionButtonsBar(),
@@ -57,7 +57,7 @@ class VideoPage extends StatelessWidget {
                 const CommentsSection(),
                 RecommendationsSection(),
                 ])
-          // )
+          )
               ],
             ),
           // ),
